@@ -1,0 +1,25 @@
+{
+  "name": "xltxlm/weixinpay",
+  "description":"微信支付框架",
+  "authors": [
+    {
+      "name": "xltxlm",
+      "email": "xltxlm@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "squizlabs/php_codesniffer": "*",
+    "friendsofphp/php-cs-fixer": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "xltxlm\\weixinpay\\": [
+        "src/"
+      ]
+    }
+  }
+}
