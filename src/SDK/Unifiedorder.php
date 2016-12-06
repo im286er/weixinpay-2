@@ -306,11 +306,11 @@ final class Unifiedorder
     }
 
     /**
-     * @return \xltxlm\weixinpay\SDK\Model\UnifiedorderSuccessModel
+     * @return Model\UnifiedorderSuccessModel
+     * @throws \Exception
      */
     public function __invoke()
     {
-        $xml = "";
         $this->getNonceStr();
         $this->getSpbillCreateIp();
         $this->getSign();
@@ -326,9 +326,10 @@ final class Unifiedorder
                 7 => $this->spbill_create_ip,
                 8 => $this->notify_url,
                 9 => $this->trade_type
-            ]);
+            ]
+        );
         $vars = get_object_vars($this);
-        $xml .= "<xml>";
+        $xml = "<xml>";
         foreach ($vars as $key => $var) {
             if (!empty("$var")) {
                 $xml .= "<$key><![CDATA[$var]]></$key>";
@@ -347,18 +348,9 @@ final class Unifiedorder
             ];
         $response = $client->post("https://api.mch.weixin.qq.com/pay/unifiedorder", $options);
         $returnXml = $response->getBody()->getContents();
-        $parser = xml_parser_create();
-        xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
-        xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 1);
-        xml_parse_into_struct($parser, $returnXml, $values, $tags);
-        xml_parser_free($parser);
-        array_pop($values);
-        array_shift($values);
-        // 遍历 XML 结构
-        $tdb = [];
-        foreach ($values as $key => $val) {
-            $tdb[$val['tag']] = $val['value'];
-        }
+        $tdb = (new \xltxlm\weixinpay\SDK\Unit\XmlToArray)
+            ->setXml($returnXml)
+            ->__invoke();
         $unifiedorderSuccess = new Model\UnifiedorderSuccessModel($tdb);
         if ($unifiedorderSuccess->getResultCode() == 'SUCCESS' && $unifiedorderSuccess->getReturnCode() == 'SUCCESS') {
             return $unifiedorderSuccess;

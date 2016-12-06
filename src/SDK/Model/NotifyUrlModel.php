@@ -26,6 +26,7 @@ final class NotifyUrlModel
     protected $device_info = "";
     protected $nonce_str = "";
     protected $sign = "";
+    protected $result_code="";
     protected $err_code = "";
     protected $err_code_des = "";
     protected $openid = "";
@@ -42,6 +43,14 @@ final class NotifyUrlModel
     protected $out_trade_no = "";
     protected $attach = "";
     protected $time_end = "";
+
+    /**
+     * @return string
+     */
+    public function getResultCode(): string
+    {
+        return $this->result_code;
+    }
 
     /**
      * @return string
