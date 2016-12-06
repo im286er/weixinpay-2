@@ -1,6 +1,6 @@
 {
   "name": "xltxlm/weixinpay",
-  "description":"微信支付框架",
+  "description": "微信支付框架,当前只验证APP支付流程,https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=8_1",
   "authors": [
     {
       "name": "xltxlm",
@@ -8,7 +8,9 @@
     }
   ],
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.0",
+    "xltxlm/helper": "*",
+    "guzzlehttp/guzzle": "~6"
   },
   "require-dev": {
     "phpunit/phpunit": "*",
@@ -19,6 +21,13 @@
     "psr-4": {
       "xltxlm\\weixinpay\\": [
         "src/"
+      ]
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "xltxlm\\weixinpay\\": [
+        "./"
       ]
     }
   }
