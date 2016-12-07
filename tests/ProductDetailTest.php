@@ -26,7 +26,7 @@ class ProductDetailTest extends TestCase
     {
         (new ProductDetail)
             ->setGoodsId(123)
-            ->setPrice(100.1)
+            ->setPrice(100)
             ->setQuantity(1)
             ->__invoke();
     }
@@ -35,9 +35,9 @@ class ProductDetailTest extends TestCase
         $ProductDetail=(new ProductDetail)
             ->setGoodsId(123)
             ->setGoodsName('hello商品名称')
-            ->setPrice(100.1)
+            ->setPrice(100)
             ->setQuantity(1)
             ->__invoke();
-        $this->assertEquals($ProductDetail,'{"goods_detail":[{"goods_id":123,"goods_name":"hello商品名称","quantity":1,"price":100.1,"boy":""}]}');
+        $this->assertEquals($ProductDetail,'{"goods_detail":[{"goods_id":123,"goods_name":"hello商品名称","quantity":1,"price":100,"boy":""}]}');
     }
 }

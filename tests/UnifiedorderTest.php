@@ -49,8 +49,7 @@ class UnifiedorderTest extends TestCase
             ->setNotifyUrl("http://wwww.com/");
         $data = $unifiedorderConfig
             ->__invoke();
-        $this->assertEquals($data->getResultCode(), 'SUCCESS');
-        $this->assertEquals($data->getReturnCode(), 'SUCCESS');
+        $this->assertNotEmpty($data->getPrepayid());
     }
 
     /**
@@ -73,7 +72,6 @@ class UnifiedorderTest extends TestCase
             ->setNotifyUrl("http://wwww.com/");
         $data = $unifiedorderConfig
             ->__invoke();
-        $this->assertEquals($data->getResultCode(), 'SUCCESS');
-        $this->assertEquals($data->getReturnCode(), 'SUCCESS');
+        $this->assertNotEmpty($data->getPrepayid());
     }
 }

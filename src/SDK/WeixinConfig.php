@@ -79,11 +79,10 @@ class WeixinConfig
         return $this;
     }
 
-    final public function __invoke()
-    {
-        return "";
-    }
-
+    /**
+     * 解决这个实例不参与签名
+     * @return string
+     */
     final public function __toString()
     {
         return "";

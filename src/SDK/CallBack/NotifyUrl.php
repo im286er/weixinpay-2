@@ -8,7 +8,6 @@
 
 namespace xltxlm\weixinpay\SDK\CallBack;
 
-
 /**
  * 交易成功处理模型
  * Class NotifyUrl

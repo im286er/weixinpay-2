@@ -9,7 +9,9 @@
 namespace xltxlm\weixinpay\SDK;
 
 use xltxlm\helper\Hclass\EmptyAttribute;
+use xltxlm\weixinpay\SDK\Model\AppCallModel;
 use xltxlm\weixinpay\SDK\Unit;
+use xltxlm\weixinpay\SDK\Unit\Sign;
 
 /**
  * 统一下单
@@ -22,7 +24,7 @@ final class Unifiedorder
     use EmptyAttribute;
 
     /** @var \xltxlm\weixinpay\SDK\WeixinConfig 配置信息 */
-    protected $config;
+    protected $configObject;
     /** @var string 应用ID */
     private $appid = "";
     /** @var string 商户号 */
@@ -61,9 +63,9 @@ final class Unifiedorder
      */
     public function __construct(\xltxlm\weixinpay\SDK\WeixinConfig $config)
     {
-        $this->config = $config;
-        $this->appid = $this->config->getAppid();
-        $this->mch_id = $this->config->getMchId();
+        $this->configObject = $config;
+        $this->appid = $this->configObject->getAppid();
+        $this->mch_id = $this->configObject->getMchId();
     }
 
 
@@ -118,22 +120,10 @@ final class Unifiedorder
     {
         if (!$this->sign) {
             $data = get_object_vars($this);
-            foreach ($data as $key => $datum) {
-                if (empty("$datum")) {
-                    unset($data[$key]);
-                }
-            }
-            reset($data);
-            //对待签名参数数组排序
-            ksort($data);
-            reset($data);
-            //
-            $data_str = [];
-            foreach ($data as $k => $v) {
-                $data_str[] = "{$k}={$v}";
-            }
-            $signstr = join('&', $data_str);
-            $this->sign = strtoupper(md5($signstr.'&key='.$this->config->getKey()));
+            $this->sign = (new Sign)
+                ->setDataArray($data)
+                ->setConfigObject($this->configObject)
+                ->__invoke();
         }
         return $this->sign;
     }
@@ -308,7 +298,7 @@ final class Unifiedorder
     }
 
     /**
-     * @return Model\UnifiedorderSuccessModel
+     * @return Model\AppCallModel
      * @throws \Exception
      */
     public function __invoke()
@@ -355,7 +345,12 @@ final class Unifiedorder
             ->__invoke();
         $unifiedorderSuccess = new Model\UnifiedorderSuccessModel($tdb);
         if ($unifiedorderSuccess->getResultCode() == 'SUCCESS' && $unifiedorderSuccess->getReturnCode() == 'SUCCESS') {
-            return $unifiedorderSuccess;
+            return (new AppCallModel)
+                ->setAppid($unifiedorderSuccess->getAppid())
+                ->setPartnerid($this->configObject->getMchId())
+                ->setPrepayid($unifiedorderSuccess->getPrepayId())
+                ->setConfigObject($this->configObject)
+                ->__invoke();
         }
         throw new \Exception("接口错误:".$unifiedorderSuccess->getReturnMsg());
     }

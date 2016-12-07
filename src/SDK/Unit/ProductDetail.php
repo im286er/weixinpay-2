@@ -24,8 +24,8 @@ final class ProductDetail
     protected $goods_name = "";
     /** @var int 商品的个数 */
     protected $quantity = 1;
-    /** @var float 商品的单价 */
-    protected $price = 0.0;
+    /** @var string 商品的单价 */
+    protected $price = 0;
     /** @var string 商品类目ID */
     protected $boy = "";
 
@@ -92,7 +92,7 @@ final class ProductDetail
     }
 
     /**
-     * @param float $price
+     * @param string $price
      * @return ProductDetail
      */
     public function setPrice($price)
