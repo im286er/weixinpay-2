@@ -8,8 +8,6 @@
 
 namespace xltxlm\weixinpay\SDK;
 
-use xltxlm\helper\Hclass\EmptyAttribute;
-
 /**
  * 应用ID + 商户号 配置
  * Class Config
@@ -87,6 +85,4 @@ class WeixinConfig
     {
         return "";
     }
-
-
 }

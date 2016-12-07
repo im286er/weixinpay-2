@@ -8,10 +8,12 @@
 
 namespace xltxlm\weixinpay\SDK;
 
+use GuzzleHttp\Client;
 use xltxlm\helper\Hclass\EmptyAttribute;
 use xltxlm\weixinpay\SDK\Model\AppCallModel;
 use xltxlm\weixinpay\SDK\Unit;
 use xltxlm\weixinpay\SDK\Unit\Sign;
+use xltxlm\weixinpay\SDK\Unit\XmlToArray;
 
 /**
  * 统一下单
@@ -23,7 +25,7 @@ final class Unifiedorder
 {
     use EmptyAttribute;
 
-    /** @var \xltxlm\weixinpay\SDK\WeixinConfig 配置信息 */
+    /** @var WeixinConfig 配置信息 */
     protected $configObject;
     /** @var string 应用ID */
     private $appid = "";
@@ -59,9 +61,9 @@ final class Unifiedorder
 
     /**
      * UnifiedorderConfig constructor.
-     * @param \xltxlm\weixinpay\SDK\WeixinConfig $config
+     * @param WeixinConfig $config
      */
-    public function __construct(\xltxlm\weixinpay\SDK\WeixinConfig $config)
+    public function __construct(WeixinConfig $config)
     {
         $this->configObject = $config;
         $this->appid = $this->configObject->getAppid();
@@ -329,7 +331,7 @@ final class Unifiedorder
         }
         $xml .= "</xml>";
 
-        $client = new \GuzzleHttp\Client();
+        $client = new Client();
         $options =
             [
                 'timeout' => 6,
@@ -340,7 +342,7 @@ final class Unifiedorder
             ];
         $response = $client->post("https://api.mch.weixin.qq.com/pay/unifiedorder", $options);
         $returnXml = $response->getBody()->getContents();
-        $tdb = (new \xltxlm\weixinpay\SDK\Unit\XmlToArray)
+        $tdb = (new XmlToArray)
             ->setXml($returnXml)
             ->__invoke();
         $unifiedorderSuccess = new Model\UnifiedorderSuccessModel($tdb);

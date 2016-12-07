@@ -8,7 +8,9 @@
 
 namespace xltxlm\weixinpay\SDK;
 
+use GuzzleHttp\Client;
 use xltxlm\helper\Hclass\EmptyAttribute;
+use xltxlm\weixinpay\SDK\Unit\XmlToArray;
 
 /**
  * 往微信服务器查询订单状态
@@ -140,7 +142,7 @@ final class Orderquery
         }
         $xml .= "</xml>";
         $url="https://api.mch.weixin.qq.com/pay/orderquery";
-        $client = new \GuzzleHttp\Client();
+        $client = new Client();
         $options =
             [
                 'timeout' => 6,
@@ -151,7 +153,7 @@ final class Orderquery
             ];
         $response = $client->post($url, $options);
         $returnXml = $response->getBody()->getContents();
-        $tdb = (new \xltxlm\weixinpay\SDK\Unit\XmlToArray)
+        $tdb = (new XmlToArray)
             ->setXml($returnXml)
             ->__invoke();
         $notifyUrlModel = new Model\NotifyUrlModel($tdb);

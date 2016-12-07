@@ -28,7 +28,7 @@ class UnifiedorderTest extends TestCase
             ->setQuantity(1)
             ->__invoke();
 
-        (new Unifiedorder(new \xltxlm\weixinpay\tests\DemoWeixinConfig))
+        (new Unifiedorder(new DemoWeixinConfig))
             ->setDetail($ProductDetail)
             ->setBody('abc')
             ->setOutTradeNo(rand(1, 9999))
@@ -42,7 +42,7 @@ class UnifiedorderTest extends TestCase
      */
     public function test1()
     {
-        $unifiedorderConfig = (new Unifiedorder(new \xltxlm\weixinpay\tests\DemoWeixinConfig))
+        $unifiedorderConfig = (new Unifiedorder(new DemoWeixinConfig))
             ->setBody('abc')
             ->setOutTradeNo(rand(1, 9999))
             ->setTotalFee(136)
@@ -64,7 +64,7 @@ class UnifiedorderTest extends TestCase
             ->setQuantity(1)
             ->__invoke();
 
-        $unifiedorderConfig = (new Unifiedorder(new \xltxlm\weixinpay\tests\DemoWeixinConfig))
+        $unifiedorderConfig = (new Unifiedorder(new DemoWeixinConfig))
             ->setDetail($ProductDetail)
             ->setBody('abc')
             ->setOutTradeNo(rand(1, 9999))

@@ -8,6 +8,7 @@
 
 namespace xltxlm\weixinpay\SDK;
 
+use xltxlm\weixinpay\SDK\CallBack\NotifyUrl as NotifyUrlClass;
 use xltxlm\weixinpay\SDK\Model\NotifyUrlModel;
 use xltxlm\weixinpay\SDK\Unit\XmlToArray;
 
@@ -35,9 +36,9 @@ final class NotifyUrl
 
     /**
      * 处理逻辑回调
-     * @param \xltxlm\weixinpay\SDK\CallBack\NotifyUrl $object
+     * @param NotifyUrlClass $object
      */
-    public function then(\xltxlm\weixinpay\SDK\CallBack\NotifyUrl $object)
+    public function then(NotifyUrlClass $object)
     {
         $object->setNotifyUrlModel($this->notifyUrlModel);
         $callBack = $object->callBack();

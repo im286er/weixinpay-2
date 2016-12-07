@@ -8,7 +8,6 @@
 
 namespace xltxlm\weixinpay;
 
-
 use PHPUnit\Framework\TestCase;
 use xltxlm\weixinpay\SDK\Unit\ProductDetail;
 
@@ -30,14 +29,18 @@ class ProductDetailTest extends TestCase
             ->setQuantity(1)
             ->__invoke();
     }
+
     public function test1()
     {
-        $ProductDetail=(new ProductDetail)
+        $ProductDetail = (new ProductDetail)
             ->setGoodsId(123)
             ->setGoodsName('hello商品名称')
             ->setPrice(100)
             ->setQuantity(1)
             ->__invoke();
-        $this->assertEquals($ProductDetail,'{"goods_detail":[{"goods_id":123,"goods_name":"hello商品名称","quantity":1,"price":100,"boy":""}]}');
+        $this->assertEquals(
+            $ProductDetail,
+            '{"goods_detail":[{"goods_id":123,"goods_name":"hello商品名称","quantity":1,"price":100,"boy":""}]}'
+        );
     }
 }
