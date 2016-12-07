@@ -21,7 +21,7 @@ final class Unifiedorder
 {
     use EmptyAttribute;
 
-    /** @var \xltxlm\weixinpay\SDK\Config 配置信息 */
+    /** @var \xltxlm\weixinpay\SDK\WeixinConfig 配置信息 */
     protected $config;
     /** @var string 应用ID */
     private $appid = "";
@@ -57,9 +57,9 @@ final class Unifiedorder
 
     /**
      * UnifiedorderConfig constructor.
-     * @param \xltxlm\weixinpay\SDK\Config $config
+     * @param \xltxlm\weixinpay\SDK\WeixinConfig $config
      */
-    public function __construct(\xltxlm\weixinpay\SDK\Config $config)
+    public function __construct(\xltxlm\weixinpay\SDK\WeixinConfig $config)
     {
         $this->config = $config;
         $this->appid = $this->config->getAppid();

@@ -15,7 +15,7 @@ use xltxlm\helper\Hclass\EmptyAttribute;
  * Class Config
  * @package xltxlm\weixinpay\SDK
  */
-class Config
+class WeixinConfig
 {
     /** @var string 应用ID     微信开放平台审核通过的应用APPID */
     protected $appid = "";
@@ -34,9 +34,9 @@ class Config
 
     /**
      * @param string $key
-     * @return Config
+     * @return WeixinConfig
      */
-    public function setKey(string $key): Config
+    public function setKey(string $key): WeixinConfig
     {
         $this->key = $key;
         return $this;
@@ -53,7 +53,7 @@ class Config
 
     /**
      * @param string $appid
-     * @return Config
+     * @return WeixinConfig
      */
     public function setAppid($appid)
     {
@@ -71,7 +71,7 @@ class Config
 
     /**
      * @param string $mch_id
-     * @return Config
+     * @return WeixinConfig
      */
     public function setMchId($mch_id)
     {

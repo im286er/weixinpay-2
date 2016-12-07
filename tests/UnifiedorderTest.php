@@ -13,7 +13,7 @@ use xltxlm\weixinpay\SDK\Unifiedorder;
 use xltxlm\weixinpay\SDK\Unit\ProductDetail;
 
 // TODO: 完成\xltxlm\weixinpay\tests\DemoConfig 的配置
-class UnifiedorderConfigTest extends TestCase
+class UnifiedorderTest extends TestCase
 {
     /**
      * 测试错误接口
@@ -28,7 +28,7 @@ class UnifiedorderConfigTest extends TestCase
             ->setQuantity(1)
             ->__invoke();
 
-        (new Unifiedorder(new \xltxlm\weixinpay\tests\DemoConfig))
+        (new Unifiedorder(new \xltxlm\weixinpay\tests\DemoWeixinConfig))
             ->setDetail($ProductDetail)
             ->setBody('abc')
             ->setOutTradeNo(rand(1, 9999))
@@ -42,7 +42,7 @@ class UnifiedorderConfigTest extends TestCase
      */
     public function test1()
     {
-        $unifiedorderConfig = (new Unifiedorder(new \xltxlm\weixinpay\tests\DemoConfig))
+        $unifiedorderConfig = (new Unifiedorder(new \xltxlm\weixinpay\tests\DemoWeixinConfig))
             ->setBody('abc')
             ->setOutTradeNo(rand(1, 9999))
             ->setTotalFee(136)
@@ -65,7 +65,7 @@ class UnifiedorderConfigTest extends TestCase
             ->setQuantity(1)
             ->__invoke();
 
-        $unifiedorderConfig = (new Unifiedorder(new \xltxlm\weixinpay\tests\DemoConfig))
+        $unifiedorderConfig = (new Unifiedorder(new \xltxlm\weixinpay\tests\DemoWeixinConfig))
             ->setDetail($ProductDetail)
             ->setBody('abc')
             ->setOutTradeNo(rand(1, 9999))
