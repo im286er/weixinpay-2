@@ -114,25 +114,27 @@ final class Unifiedorder
     /**
      * @return string
      */
-    private function getSign()
+    public function getSign()
     {
-        $data = get_object_vars($this);
-        foreach ($data as $key => $datum) {
-            if (empty("$datum")) {
-                unset($data[$key]);
+        if (!$this->sign) {
+            $data = get_object_vars($this);
+            foreach ($data as $key => $datum) {
+                if (empty("$datum")) {
+                    unset($data[$key]);
+                }
             }
+            reset($data);
+            //对待签名参数数组排序
+            ksort($data);
+            reset($data);
+            //
+            $data_str = [];
+            foreach ($data as $k => $v) {
+                $data_str[] = "{$k}={$v}";
+            }
+            $signstr = join('&', $data_str);
+            $this->sign = strtoupper(md5($signstr.'&key='.$this->config->getKey()));
         }
-        reset($data);
-        //对待签名参数数组排序
-        ksort($data);
-        reset($data);
-        //
-        $data_str = [];
-        foreach ($data as $k => $v) {
-            $data_str[] = "{$k}={$v}";
-        }
-        $signstr = join('&', $data_str);
-        $this->sign = strtoupper(md5($signstr.'&key='.$this->config->getKey()));
         return $this->sign;
     }
 
