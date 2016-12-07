@@ -27,6 +27,7 @@ final class Unifiedorder
 
     /** @var WeixinConfig 配置信息 */
     protected $configObject;
+    protected $debug = false;
     /** @var string 应用ID */
     private $appid = "";
     /** @var string 商户号 */
@@ -58,6 +59,24 @@ final class Unifiedorder
     protected $notify_url = "";
     /** @var string 交易类型 */
     private $trade_type = 'APP';
+
+    /**
+     * @return boolean
+     */
+    public function isDebug(): bool
+    {
+        return $this->debug;
+    }
+
+    /**
+     * @param boolean $debug
+     * @return Unifiedorder
+     */
+    public function setDebug(bool $debug): Unifiedorder
+    {
+        $this->debug = $debug;
+        return $this;
+    }
 
     /**
      * UnifiedorderConfig constructor.
@@ -305,6 +324,8 @@ final class Unifiedorder
      */
     public function __invoke()
     {
+        $debug=$this->debug;
+        unset($this->debug);
         $this->getNonceStr();
         $this->getSpbillCreateIp();
         $this->getSign();
@@ -337,7 +358,7 @@ final class Unifiedorder
                 'timeout' => 6,
                 //不检查https证书的合法性
                 'verify' => false,
-                'debug' => true,
+                'debug' => $debug,
                 'body' => $xml
             ];
         $response = $client->post("https://api.mch.weixin.qq.com/pay/unifiedorder", $options);

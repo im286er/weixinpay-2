@@ -51,7 +51,6 @@ class UnifiedorderTest extends TestCase
             ->__invoke();
         $this->assertNotEmpty($data->getPrepayid());
     }
-
     /**
      * 测试正常数据 带商品信息
      */
@@ -69,6 +68,22 @@ class UnifiedorderTest extends TestCase
             ->setBody('abc')
             ->setOutTradeNo(rand(1, 9999))
             ->setTotalFee(136)
+            ->setNotifyUrl("http://wwww.com/");
+        $data = $unifiedorderConfig
+            ->__invoke();
+        $this->assertNotEmpty($data->getPrepayid());
+    }
+
+    /**
+     * 测试正常数据 - debug
+     */
+    public function test3()
+    {
+        $unifiedorderConfig = (new Unifiedorder(new DemoWeixinConfig))
+            ->setBody('abc')
+            ->setOutTradeNo(rand(1, 9999))
+            ->setTotalFee(136)
+            ->setDebug(true)
             ->setNotifyUrl("http://wwww.com/");
         $data = $unifiedorderConfig
             ->__invoke();
