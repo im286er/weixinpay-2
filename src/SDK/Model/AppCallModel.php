@@ -8,6 +8,7 @@
 
 namespace xltxlm\weixinpay\SDK\Model;
 
+use xltxlm\helper\Ctroller\ResponseJson;
 use xltxlm\weixinpay\SDK\Unit\Sign;
 use xltxlm\weixinpay\SDK\WeixinConfig;
 
@@ -18,6 +19,7 @@ use xltxlm\weixinpay\SDK\WeixinConfig;
  */
 final class AppCallModel
 {
+    use ResponseJson;
     protected $appid;
     protected $partnerid;
     protected $prepayid;
@@ -155,7 +157,7 @@ final class AppCallModel
     /**
      * @return $this
      */
-    public function __invoke()
+    public function make()
     {
         $this->getTimestamp();
         $this->getNoncestr();

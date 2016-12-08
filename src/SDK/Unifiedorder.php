@@ -373,7 +373,7 @@ final class Unifiedorder
                 ->setPartnerid($this->configObject->getMchId())
                 ->setPrepayid($unifiedorderSuccess->getPrepayId())
                 ->setConfigObject($this->configObject)
-                ->__invoke();
+                ->make();
         }
         throw new \Exception("接口错误:".$unifiedorderSuccess->getReturnMsg());
     }
