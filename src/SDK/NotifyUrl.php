@@ -8,7 +8,7 @@
 
 namespace xltxlm\weixinpay\SDK;
 
-use xltxlm\weixinpay\SDK\CallBack\NotifyUrl as NotifyUrlClass;
+use xltxlm\weixinpay\SDK\CallBack\NotifyUrlCall as NotifyUrlClass;
 use xltxlm\weixinpay\SDK\Model\NotifyUrlModel;
 use xltxlm\weixinpay\SDK\Unit\XmlToArray;
 

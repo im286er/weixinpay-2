@@ -8,13 +8,16 @@
 
 namespace xltxlm\weixinpay\SDK\CallBack;
 
+use xltxlm\weixinpay\SDK\Model\NotifyUrlModel;
+
 /**
  * 交易成功处理模型
  * Class NotifyUrl
  * @package xltxlm\weixinpay\SDK\CallBack
  */
-abstract class NotifyUrl
+abstract class NotifyUrlCall
 {
+    /** @var  NotifyUrlModel */
     private $NotifyUrlModel;
     /** @var string 返回给微信的错误信息 */
     protected $errorMessage = "";
@@ -29,9 +32,9 @@ abstract class NotifyUrl
 
     /**
      * @param string $errorMessage
-     * @return NotifyUrl
+     * @return NotifyUrlCall
      */
-    public function setErrorMessage(string $errorMessage): NotifyUrl
+    public function setErrorMessage(string $errorMessage): NotifyUrlCall
     {
         $this->errorMessage = $errorMessage;
         return $this;
@@ -39,7 +42,7 @@ abstract class NotifyUrl
 
 
     /**
-     * @return mixed
+     * @return NotifyUrlModel
      */
     public function getNotifyUrlModel()
     {
@@ -47,10 +50,10 @@ abstract class NotifyUrl
     }
 
     /**
-     * @param mixed $NotifyUrlModel
-     * @return NotifyUrl
+     * @param NotifyUrlModel $NotifyUrlModel
+     * @return NotifyUrlCall
      */
-    public function setNotifyUrlModel($NotifyUrlModel)
+    public function setNotifyUrlModel(NotifyUrlModel $NotifyUrlModel)
     {
         $this->NotifyUrlModel = $NotifyUrlModel;
         return $this;
