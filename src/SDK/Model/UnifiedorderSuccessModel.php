@@ -9,6 +9,7 @@
 namespace xltxlm\weixinpay\SDK\Model;
 
 use xltxlm\helper\Hclass\LoadFromArray;
+use xltxlm\helper\Hclass\ObjectToJson;
 
 /**
  * 下单成功后返回的结构
@@ -17,7 +18,7 @@ use xltxlm\helper\Hclass\LoadFromArray;
  */
 final class UnifiedorderSuccessModel
 {
-    use LoadFromArray;
+    use LoadFromArray, ObjectToJson;
     protected $return_code;
     protected $return_msg;
     protected $appid;

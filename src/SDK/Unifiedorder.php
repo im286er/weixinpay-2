@@ -375,6 +375,6 @@ final class Unifiedorder
                 ->setConfigObject($this->configObject)
                 ->make();
         }
-        throw new \Exception("接口错误:".$unifiedorderSuccess->getReturnMsg());
+        throw new \Exception("接口错误:".$unifiedorderSuccess->getReturnMsg()."|$unifiedorderSuccess");
     }
 }
