@@ -9,6 +9,7 @@
 namespace xltxlm\weixinpay\SDK\Model;
 
 use xltxlm\helper\Hclass\LoadFromArray;
+use xltxlm\helper\Hclass\ObjectToJson;
 
 /**
  * 收到微信的成功支付通知 字段注释看文档: https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_7&index=3
@@ -17,7 +18,7 @@ use xltxlm\helper\Hclass\LoadFromArray;
  */
 final class NotifyUrlModel
 {
-    use LoadFromArray;
+    use LoadFromArray,ObjectToJson;
     protected $return_code = "";
     protected $return_msg = "";
 

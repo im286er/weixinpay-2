@@ -10,6 +10,7 @@ namespace xltxlm\weixinpay\SDK;
 
 use GuzzleHttp\Client;
 use xltxlm\helper\Hclass\EmptyAttribute;
+use xltxlm\weixinpay\SDK\Unit\Sign;
 use xltxlm\weixinpay\SDK\Unit\XmlToArray;
 
 /**
@@ -26,13 +27,57 @@ final class Orderquery
     protected $out_trade_no = "";
     private $nonce_str = "";
     private $sign = "";
+    /** @var   \xltxlm\weixinpay\SDK\WeixinConfig 微信配置 */
+    protected $configObject;
+    /** @var bool 调试开关 */
+    protected $debug = false;
+
+    /**
+     * @return bool
+     */
+    public function isDebug(): bool
+    {
+        return $this->debug;
+    }
+
+    /**
+     * @param bool $debug
+     * @return Orderquery
+     */
+    public function setDebug(bool $debug): Orderquery
+    {
+        $this->debug = $debug;
+        return $this;
+    }
+
+
+    /**
+     * @return WeixinConfig
+     */
+    public function getConfigObject(): WeixinConfig
+    {
+        return $this->configObject;
+    }
+
+    /**
+     * @param WeixinConfig $configObject
+     * @return Orderquery
+     */
+    public function setConfigObject(WeixinConfig $configObject): Orderquery
+    {
+        $this->configObject = $configObject;
+        $this->setAppid($this->configObject->getAppid());
+        $this->setMchId($this->configObject->getMchId());
+        return $this;
+    }
+
 
     /**
      * @return string
      */
     private function getNonceStr(): string
     {
-        return $this->nonce_str;
+        return $this->nonce_str = uniqid();
     }
 
     /**
@@ -40,6 +85,13 @@ final class Orderquery
      */
     private function getSign(): string
     {
+        if (!$this->sign) {
+            $data = get_object_vars($this);
+            $this->sign = (new Sign())
+                ->setDataArray($data)
+                ->setConfigObject($this->configObject)
+                ->__invoke();
+        }
         return $this->sign;
     }
 
@@ -55,7 +107,7 @@ final class Orderquery
      * @param string $appid
      * @return Orderquery
      */
-    public function setAppid(string $appid): Orderquery
+    private function setAppid(string $appid): Orderquery
     {
         $this->appid = $appid;
         return $this;
@@ -73,7 +125,7 @@ final class Orderquery
      * @param string $mch_id
      * @return Orderquery
      */
-    public function setMchId(string $mch_id): Orderquery
+    private function setMchId(string $mch_id): Orderquery
     {
         $this->mch_id = $mch_id;
         return $this;
@@ -141,14 +193,14 @@ final class Orderquery
             }
         }
         $xml .= "</xml>";
-        $url="https://api.mch.weixin.qq.com/pay/orderquery";
+        $url = "https://api.mch.weixin.qq.com/pay/orderquery";
         $client = new Client();
         $options =
             [
                 'timeout' => 6,
                 //不检查https证书的合法性
                 'verify' => false,
-                'debug' => true,
+                'debug' => $this->debug,
                 'body' => $xml
             ];
         $response = $client->post($url, $options);
@@ -160,6 +212,6 @@ final class Orderquery
         if ($notifyUrlModel->getResultCode() == 'SUCCESS' && $notifyUrlModel->getReturnCode() == 'SUCCESS') {
             return $notifyUrlModel;
         }
-        throw new \Exception("接口错误:".$notifyUrlModel->getReturnMsg());
+        throw new \Exception("接口错误:".$notifyUrlModel->getReturnMsg()."|$notifyUrlModel");
     }
 }

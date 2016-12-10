@@ -24,6 +24,9 @@ final class NotifyUrl
     public function __construct()
     {
         $this->xml = file_get_contents("php://input");
+        if (!$this->xml) {
+            throw new \Exception("未收到支付内容");
+        }
         $tdb = (new XmlToArray())
             ->setXml($this->xml)
             ->__invoke();
