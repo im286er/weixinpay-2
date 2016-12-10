@@ -1,0 +1,18 @@
+#代码质量检测
+filter:
+    paths: [ "src/*" ]
+
+build:
+    environment:
+        php: 7.0.8
+    dependencies:
+        before:
+          - php -s 127.0.0.1:1472 -t tests
+    tests:
+        override:
+            -
+                command: 'phpunit --coverage-clover=some-file'
+                coverage:
+                    file: 'some-file'
+                    format: 'clover'
+
