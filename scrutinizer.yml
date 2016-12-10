@@ -5,9 +5,6 @@ filter:
 build:
     environment:
         php: 7.0.8
-    dependencies:
-        before:
-          - php -S 127.0.0.1:1472 -t tests
     tests:
         override:
             -
