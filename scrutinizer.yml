@@ -2,17 +2,4 @@
 filter:
     paths: [ "src/*" ]
 
-build:
-    environment:
-        php: 7.0.8
-    dependencies:
-        before:
-          - nohup php -S 127.0.0.1:1472 -t tests >/dev/null &
-    tests:
-        override:
-            -
-                command: 'phpunit --coverage-clover=some-file'
-                coverage:
-                    file: 'some-file'
-                    format: 'clover'
 
